@@ -18,14 +18,18 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 @keyframes snowfall {
   0% {
-    transform: translateY(-10vh);
+    transform: translateY(-10vh) translateX(0);
+  }
+  50% {
+    transform: translateY(45vh) translateX(20px);
   }
   100% {
-    transform: translateY(100vh);
+    transform: translateY(100vh) translateX(0);
   }
 }
 
@@ -44,13 +48,23 @@ body {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1) translate(-50%, -50%); }
-  50% { transform: scale(1.1) translate(-45%, -45%); }
-  100% { transform: scale(1) translate(-50%, -50%); }
+  0% { 
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1) translate(-45%, -45%);
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 0.8;
+  }
 }
 
 .cursor-pulse {
   animation: pulse 2s infinite;
+  will-change: transform, opacity; /* Performance optimization */
 }
 
 @keyframes grid-scroll {
@@ -66,4 +80,18 @@ body {
 
 .animate-grid-scroll {
   animation: grid-scroll 20s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .absolute,
+  .cursor-pulse,
+  .animate-grid-scroll {
+    animation: none;
+  }
+}
+
+.bg-scanlines,
+.bg-grid-pattern,
+.cursor-pulse {
+  user-select: none;
 }

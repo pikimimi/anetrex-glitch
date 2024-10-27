@@ -149,11 +149,7 @@ const CursorFollower = () => {
   );
 };
 
-interface EyeProps {
-  isVisible: boolean;
-}
-
-const Eye: React.FC<EyeProps> = ({ isVisible }) => {
+const Eye: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
   const eyeArt = `
 ⠤⣤⣤⣤⣄⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⠤⠤⠴⠶⠶⠶⠶
 ⢠⣤⣤⡄⣤⣤⣤⠄⣀⠉⣉⣙⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠘⣉⢡⣤⡤⠐⣶⡆⢶⠀⣶⣶⡦
@@ -210,7 +206,7 @@ const AboutMe: React.FC = () => (
       I code visuals that react to sound in real-time and design websites with that old-web energy.
     </p>
     <p className="text-gray-300">
-      When I&apos;m not making noise, I&apos;m walking by the sea, cooking, or lost in cartoons.
+      When I'm not making noise, I'm walking by the sea, cooking, or lost in cartoons.
     </p>
   </section>
 );
@@ -244,7 +240,7 @@ const Contact: React.FC = () => (
     </GlitchText>
     <div className="text-gray-300">
       <p>anetrexic@gmail.com</p>
-      <p>53&apos;16&apos;30.00&quot; N, 9&apos;02&apos;57.48&quot; W</p>
+      <p>53°16'30.00" N, 9°02'57.48" W</p> {/* Replaced `&apos;` and `&quot;` with actual characters */}
     </div>
   </section>
 );
@@ -281,8 +277,8 @@ const CyberEyes: React.FC = () => (
 
 const ContentSection: React.FC<{ activeSection: Section }> = ({ activeSection }) => {
   return (
-    <div className="flex h-full">
-      <div className="w-4/5 space-y-6 pr-8">
+    <div className="flex h-full max-md:flex-col">
+      <div className="w-4/5 space-y-6 pr-8 max-md:w-full max-md:pr-0">
         <div className={`transition-all duration-500 ${activeSection !== 'none' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <AboutMe />
         </div>
@@ -293,7 +289,7 @@ const ContentSection: React.FC<{ activeSection: Section }> = ({ activeSection })
           <Contact />
         </div>
       </div>
-      <div className="w-1/5 relative">
+      <div className="w-1/5 relative max-md:w-full max-md:min-h-[200px]">
         <div className={`absolute top-0 right-0 h-full flex items-end transition-all duration-500 ${activeSection === 'art' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
           <div className="mb-4">
             <CyberEyes />
@@ -335,7 +331,7 @@ export default function MinimalCyberpunkLanding() {
       
       {/* About Text */}
       <div 
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 cursor-pointer"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 cursor-pointer max-md:hidden"
         onClick={cycleSection}
       >
         <GlitchText intensity="low" className="text-rose-500 text-lg font-light tracking-widest hover:text-rose-400 transition-colors duration-300">
@@ -345,50 +341,62 @@ export default function MinimalCyberpunkLanding() {
       
       <main className="relative z-30 mx-auto max-w-7xl px-4 py-12 flex-grow flex flex-col justify-between">
         <header className="mb-8 space-y-2 text-center">
-          <GlitchText intensity="high" className="block text-4xl font-light tracking-wider">
+          <GlitchText intensity="high" className="block text-4xl font-light tracking-wider max-md:text-3xl">
             サイバーパンク
           </GlitchText>
           
-          <GlitchText intensity="medium" className="block text-2xl font-light tracking-widest text-rose-500">
+          <GlitchText intensity="medium" className="block text-2xl font-light tracking-widest text-rose-500 max-md:text-xl">
             anetrexic
           </GlitchText>
 
-          <GlitchText intensity="low" className="block text-lg font-light tracking-wider text-gray-400">
+          <GlitchText intensity="low" className="block text-lg font-light tracking-wider text-gray-400 max-md:text-base">
             デジタルコア_アンダーグラウンド
           </GlitchText>
+
+          {/* Mobile-only about button */}
+          <div className="md:hidden mt-6">
+            <button 
+              onClick={cycleSection}
+              className="text-rose-500 text-lg font-light tracking-widest hover:text-rose-400 transition-colors duration-300"
+            >
+              <GlitchText intensity="low">
+                about
+              </GlitchText>
+            </button>
+          </div>
         </header>
 
-        {/* Content sections with smooth transitions */}
         <ContentSection activeSection={activeSection} />
 
-        {/* Move footer inside main for better spacing control */}
         <footer className="relative z-30 pt-8">
-          <div className="flex justify-center space-x-12">
-            <a href="https://www.instagram.com/anetrexic/" target="_blank" rel="noopener noreferrer" className="group">
-              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                instagram
-              </GlitchText>
-            </a>
-            <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
-              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                spotify
-              </GlitchText>
-            </a>
-            <a href="https://soundcloud.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                soundcloud
-              </GlitchText>
-            </a>
-            <a href="https://x.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                x
-              </GlitchText>
-            </a>
-            <a href="https://www.youtube.com/@anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                youtube
-              </GlitchText>
-            </a>
+          <div className="flex justify-center max-md:flex-wrap max-md:gap-y-4">
+            <div className="flex space-x-12 max-md:flex-wrap max-md:justify-center max-md:gap-y-4">
+              <a href="https://www.instagram.com/anetrexic/" target="_blank" rel="noopener noreferrer" className="group">
+                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                  instagram
+                </GlitchText>
+              </a>
+              <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
+                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                  spotify
+                </GlitchText>
+              </a>
+              <a href="https://soundcloud.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                  soundcloud
+                </GlitchText>
+              </a>
+              <a href="https://x.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                  x
+                </GlitchText>
+              </a>
+              <a href="https://www.youtube.com/@anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                  youtube
+                </GlitchText>
+              </a>
+            </div>
           </div>
         </footer>
       </main>
