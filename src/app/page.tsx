@@ -161,63 +161,76 @@ const AnimatedGrid = () => (
   </div>
 );
 
-const ASCIICursor: React.FC = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+interface EyeProps {
+  isVisible: boolean;
+}
 
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePos({ x: event.clientX, y: event.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-    const fontSize = 12;
-    ctx.font = `${fontSize}px monospace`;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-
-    for (let y = 0; y < canvas.height; y += fontSize) {
-      for (let x = 0; x < canvas.width; x += fontSize) {
-        const dx = x - mousePos.x;
-        const dy = y - mousePos.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 100) {
-          const charIndex = Math.floor(Math.random() * characters.length);
-          ctx.fillText(characters[charIndex], x, y);
-        }
-      }
-    }
-  }, [mousePos]);
+const Eye: React.FC<EyeProps> = ({ isVisible }) => {
+  const eyeArt = `
+⠤⣤⣤⣤⣄⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⠤⠤⠴⠶⠶⠶⠶
+⢠⣤⣤⡄⣤⣤⣤⠄⣀⠉⣉⣙⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠘⣉⢡⣤⡤⠐⣶⡆⢶⠀⣶⣶⡦
+⣄⢻⣿⣧⠻⠇⠋⠀⠋⠀⢘⣿⢳⣦⣌⠳⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠞⣡⣴⣧⠻⣄⢸⣿⣿⡟⢁⡻⣸⣿⡿⠁
+⠈⠃⠙⢿⣧⣙⠶⣿⣿⡷⢘⣡⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣷⣝⡳⠶⠶⠾⣛⣵⡿⠋⠀⠀
+⠀⠀⠀⠀⠉⠻⣿⣶⠂⠘⠛⠛⠛⢛⡛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠀⠉⠒⠛⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢻⡁⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠘⡇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀ ⠀⠀⠀⠿ 
+  `;
 
   return (
-    <canvas 
-      ref={canvasRef} 
-      className="fixed inset-0 pointer-events-none z-40" 
-      style={{ mixBlendMode: 'overlay' }}
-    />
+    <div 
+      className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <pre className="text-rose-500 text-xs font-bold whitespace-pre">
+        {eyeArt}
+      </pre>
+    </div>
+  );
+};
+
+const CornerStars: React.FC = () => {
+  return (
+    <>
+      <div className="fixed top-4 left-4 text-rose-500 text-2xl z-50">★</div>
+      <div className="fixed top-4 right-4 text-rose-500 text-2xl z-50">★</div>
+      <div className="fixed bottom-4 left-4 text-rose-500 text-2xl z-50">★</div>
+      <div className="fixed bottom-4 right-4 text-rose-500 text-2xl z-50">★</div>
+    </>
+  );
+};
+
+const AboutMe: React.FC = () => {
+  return (
+    <section className="mb-16 animate-fade-in">
+      <GlitchText intensity="medium" className="block text-2xl font-light tracking-wider mb-4">
+        About Me
+      </GlitchText>
+      <div className="space-y-4">
+        <GlitchText intensity="low" className="block text-gray-400">
+          Cybernetic entity // Code architect // Digital dreamer
+        </GlitchText>
+        <p className="text-gray-300">
+          Navigating the neon-lit streets of the digital realm, I craft immersive experiences 
+          and push the boundaries of what's possible in code. With a neural network fine-tuned 
+          on both the cutting edge and the underground, I bring a unique perspective to every project.
+        </p>
+        <p className="text-gray-300">
+          Whether I'm hacking together experimental interfaces or optimizing algorithms for 
+          maximum efficiency, my goal is always the same: to create digital experiences that 
+          feel like glimpses into a thrilling, tech-noir future.
+        </p>
+      </div>
+    </section>
   );
 };
 
 export default function MinimalCyberpunkLanding() {
+  const [showAboutMe, setShowAboutMe] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-black text-white flex flex-col justify-between">
       {/* Noise overlay */}
@@ -229,7 +242,21 @@ export default function MinimalCyberpunkLanding() {
       {/* Cursor Follower */}
       <CursorFollower />
       
-      <ASCIICursor />
+      {/* Static Eye */}
+      <Eye isVisible={!showAboutMe} />
+      
+      {/* Corner Stars */}
+      <CornerStars />
+      
+      {/* About Text */}
+      <div 
+        className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 cursor-pointer"
+        onClick={() => setShowAboutMe(!showAboutMe)}
+      >
+        <GlitchText intensity="low" className="text-rose-500 text-xl font-light tracking-widest hover:text-rose-400 transition-colors duration-300">
+          {showAboutMe ? 'Close' : 'About'}
+        </GlitchText>
+      </div>
       
       <main className="relative z-30 mx-auto max-w-4xl px-4 py-16 flex-grow">
         <header className="mb-24 space-y-8 text-center">
@@ -245,6 +272,9 @@ export default function MinimalCyberpunkLanding() {
             デジタルコア_アンダーグラウンド
           </GlitchText>
         </header>
+
+        {/* Conditional rendering of About Me section */}
+        {showAboutMe && <AboutMe />}
       </main>
 
       {/* Social Links at the bottom */}
