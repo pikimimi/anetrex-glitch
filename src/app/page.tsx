@@ -240,7 +240,7 @@ const Contact: React.FC = () => (
     </GlitchText>
     <div className="text-gray-300">
       <p>anetrexic@gmail.com</p>
-      <p>53°16'30.00" N, 9°02'57.48" W</p> {/* Replaced `&apos;` and `&quot;` with actual characters */}
+      <p>53°16&apos;30.00&quot; N, 9°02&apos;57.48&quot; W</p>
     </div>
   </section>
 );
