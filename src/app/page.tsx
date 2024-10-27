@@ -206,7 +206,10 @@ const AboutMe: React.FC = () => (
       I code visuals that react to sound in real-time and design websites with that old-web energy.
     </p>
     <p className="text-gray-300">
-      When I'm not making noise, I'm walking by the sea, cooking, or lost in cartoons.
+      When I&apos;m not making noise, I&apos;m walking by the sea, cooking, or lost in cartoons.
+    </p>
+    <p className="text-gray-300">
+      53°16&apos;30.00&quot; N, 9°02&apos;57.48&quot; W
     </p>
   </section>
 );
