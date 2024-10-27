@@ -6,14 +6,12 @@ const GlitchText = ({
   children, 
   intensity = 'medium',
   className = '',
-  mono = false,
-  neonColor = 'rose' // New prop for neon color
+  mono = false
 }: { 
   children: string;
-   intensity?: 'low' | 'medium' | 'high' | 'extreme';
+  intensity?: 'low' | 'medium' | 'high' | 'extreme';
   className?: string;
   mono?: boolean;
-  neonColor?: string; // Added neonColor to the type definition
 }) => {
   const [text, setText] = useState<string>(children);
   const [isGlitching, setIsGlitching] = useState(false);
@@ -92,10 +90,6 @@ const SnowEffect = () => {
   );
 };
 
-const Scanlines = () => (
-  <div className="pointer-events-none fixed inset-0 z-50 bg-scanlines opacity-10"></div>
-);
-
 const CursorFollower = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorTrailRef = useRef<HTMLDivElement>(null);
@@ -155,24 +149,18 @@ const CursorFollower = () => {
   );
 };
 
-const AnimatedGrid = () => (
-  <div className="fixed inset-0 z-0 pointer-events-none">
-    <div className="absolute inset-0 bg-grid-pattern opacity-20 animate-grid-scroll"></div>
-  </div>
-);
-
 interface EyeProps {
   isVisible: boolean;
 }
 
 const Eye: React.FC<EyeProps> = ({ isVisible }) => {
   const eyeArt = `
-⠤⣤⣤⣤⣄⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⠤⠤⠴⠶⠶⠶⠶
+⠤⣤⣤⣤⣄⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⠤⠤⠴⠶⠶⠶⠶
 ⢠⣤⣤⡄⣤⣤⣤⠄⣀⠉⣉⣙⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠘⣉⢡⣤⡤⠐⣶⡆⢶⠀⣶⣶⡦
 ⣄⢻⣿⣧⠻⠇⠋⠀⠋⠀⢘⣿⢳⣦⣌⠳⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠞⣡⣴⣧⠻⣄⢸⣿⣿⡟⢁⡻⣸⣿⡿⠁
 ⠈⠃⠙⢿⣧⣙⠶⣿⣿⡷⢘⣡⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣷⣝⡳⠶⠶⠾⣛⣵⡿⠋⠀⠀
 ⠀⠀⠀⠀⠉⠻⣿⣶⠂⠘⠛⠛⠛⢛⡛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠀⠉⠒⠛⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⢻⡁⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -203,33 +191,130 @@ const CornerStars: React.FC = () => {
   );
 };
 
-const AboutMe: React.FC = () => {
+// Define the different sections
+const SECTIONS = ['none', 'about', 'projects', 'contact', 'art'] as const;
+type Section = typeof SECTIONS[number];
+
+const AboutMe: React.FC = () => (
+  <section className="mb-4">
+    <GlitchText intensity="medium" className="block text-xl font-light tracking-wider mb-2">
+      About Me
+    </GlitchText>
+    <p className="text-gray-300 mb-2">
+      Creating in the digital underground.
+    </p>
+    <p className="text-gray-300 mb-2">
+      I produce breakcore and experimental electronic music, blending analog synths with glitched circuits and custom patches.
+    </p>
+    <p className="text-gray-300 mb-2">
+      I code visuals that react to sound in real-time and design websites with that old-web energy.
+    </p>
+    <p className="text-gray-300">
+      When I'm not making noise, I'm walking by the sea, cooking, or lost in cartoons.
+    </p>
+  </section>
+);
+
+const Projects: React.FC = () => (
+  <section className="mb-4">
+    <GlitchText intensity="medium" className="block text-xl font-light tracking-wider mb-2">
+      Projects
+    </GlitchText>
+    <ul className="list-disc list-inside text-gray-300">
+      <li>
+        <a 
+          href="https://citypopmidi.online" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="hover:text-rose-400 transition-colors duration-300"
+        >
+          citypopmidi.online
+        </a>
+      </li>
+      <li>Sample pack/drum kit <span className="text-rose-500">(coming soon)</span></li>
+      <li>Album art editor <span className="text-rose-500">(coming soon)</span></li>
+    </ul>
+  </section>
+);
+
+const Contact: React.FC = () => (
+  <section className="mb-4">
+    <GlitchText intensity="medium" className="block text-xl font-light tracking-wider mb-2">
+      Contact Me
+    </GlitchText>
+    <div className="text-gray-300">
+      <p>anetrexic@gmail.com</p>
+      <p>53°16'30.00" N, 9°02'57.48" W</p> {/* Replaced `&apos;` and `&quot;` with actual characters */}
+    </div>
+  </section>
+);
+
+const AsciiHeart: React.FC = () => (
+  <pre className="text-rose-500 text-xs font-bold whitespace-pre">
+{`⠀⠀⠀⠀⣠⣤⣤⣴⡿⠛⣷⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣿⡇⠀⠙⠀⢀⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⡿⣦⣀⣠⡿⡏⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠇⡁⢹⡏⠂⠇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠁⠀⢘⡇⠁⡃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⡇⠀⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀`}
+  </pre>
+);
+
+const CyberEyes: React.FC = () => (
+  <pre className="text-rose-500 text-xs font-bold whitespace-pre">
+{`⠤⠤⠤⠤⠤⠤⢤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠤⠶⠶⠶⠦⠤⠤⠤⠤⠤⢤⣤⣀⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⠄⢂⣠⣭⣭⣕⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠀⠀⠀⠤⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉
+⠀⠀⢀⠜⣳⣾⡿⠛⣿⣿⣿⣦⡠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣍⣀⣦⠦⠄⣀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠠⣄⣽⣿⠋⠀⡰⢿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⡿⠛⠛⡿⠿⣿⣿⣿⣿⣿⣿⣷⣶⣿⣁⣂⣤⡄⠀⠀⠀⠀⠀⠀
+⢳⣶⣼⣿⠃⠀⢀⠧⠤⢜⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠟⠁⠀⠀⠀⡇⠀⣀⡈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠁⠐⠀⣀⠀⠀
+⠀⠙⠻⣿⠀⠀⠀⠀⠀⠀⢹⣿⣿⡝⢿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡿⠋⠀⠀⠀⠀⠠⠃⠁⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⡿⠋⠀⠀
+⠀⠀⠀⠙⡄⠀⠀⠀⠀⠀⢸⣿⣿⡃⢼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⡏⠉⠉⠻⣿⡿⠋⠀⠀⠀⠀
+⠀⠀⠀⠀⢰⠀⠀⠰⡒⠊⠻⠿⠋⠐⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠸⣇⡀⠀⠑⢄⠀⠀⠀⡠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢖⠠⠤⠤⠔⠙⠻⠿⠋⠱⡑⢄⠀⢠⠟⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠈⠉⠒⠒⠻⠶⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠡⢀⡵⠃⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠦⣀⠀⠀⠀⠀⠀⢀⣤⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠙⠛⠓⠒⠲⠿⢍⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`}
+  </pre>
+);
+
+const ContentSection: React.FC<{ activeSection: Section }> = ({ activeSection }) => {
   return (
-    <section className="mb-16 animate-fade-in">
-      <GlitchText intensity="medium" className="block text-2xl font-light tracking-wider mb-4">
-        About Me
-      </GlitchText>
-      <div className="space-y-4">
-        <GlitchText intensity="low" className="block text-gray-400">
-          Cybernetic entity // Code architect // Digital dreamer
-        </GlitchText>
-        <p className="text-gray-300">
-          Navigating the neon-lit streets of the digital realm, I craft immersive experiences 
-          and push the boundaries of what's possible in code. With a neural network fine-tuned 
-          on both the cutting edge and the underground, I bring a unique perspective to every project.
-        </p>
-        <p className="text-gray-300">
-          Whether I'm hacking together experimental interfaces or optimizing algorithms for 
-          maximum efficiency, my goal is always the same: to create digital experiences that 
-          feel like glimpses into a thrilling, tech-noir future.
-        </p>
+    <div className="flex h-full">
+      <div className="w-4/5 space-y-6 pr-8">
+        <div className={`transition-all duration-500 ${activeSection !== 'none' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <AboutMe />
+        </div>
+        <div className={`transition-all duration-500 ${activeSection !== 'none' && activeSection !== 'about' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <Projects />
+        </div>
+        <div className={`transition-all duration-500 ${activeSection !== 'none' && activeSection !== 'about' && activeSection !== 'projects' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <Contact />
+        </div>
       </div>
-    </section>
+      <div className="w-1/5 relative">
+        <div className={`absolute top-0 right-0 h-full flex items-end transition-all duration-500 ${activeSection === 'art' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
+          <div className="mb-4">
+            <CyberEyes />
+          </div>
+        </div>
+        <div className={`absolute top-1/2 -translate-y-1/2 left-0 transition-all duration-500 ${activeSection === 'none' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <AsciiHeart />
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default function MinimalCyberpunkLanding() {
-  const [showAboutMe, setShowAboutMe] = useState(false);
+  const [activeSection, setActiveSection] = useState<Section>('none');
+
+  const cycleSection = () => {
+    const currentIndex = SECTIONS.indexOf(activeSection);
+    const nextIndex = (currentIndex + 1) % SECTIONS.length;
+    setActiveSection(SECTIONS[nextIndex]);
+  };
 
   return (
     <div className="relative min-h-screen bg-black text-white flex flex-col justify-between">
@@ -243,60 +328,70 @@ export default function MinimalCyberpunkLanding() {
       <CursorFollower />
       
       {/* Static Eye */}
-      <Eye isVisible={!showAboutMe} />
+      <Eye isVisible={activeSection === 'none'} />
       
       {/* Corner Stars */}
       <CornerStars />
       
       {/* About Text */}
       <div 
-        className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 cursor-pointer"
-        onClick={() => setShowAboutMe(!showAboutMe)}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 cursor-pointer"
+        onClick={cycleSection}
       >
-        <GlitchText intensity="low" className="text-rose-500 text-xl font-light tracking-widest hover:text-rose-400 transition-colors duration-300">
-          {showAboutMe ? 'Close' : 'About'}
+        <GlitchText intensity="low" className="text-rose-500 text-lg font-light tracking-widest hover:text-rose-400 transition-colors duration-300">
+          about
         </GlitchText>
       </div>
       
-      <main className="relative z-30 mx-auto max-w-4xl px-4 py-16 flex-grow">
-        <header className="mb-24 space-y-8 text-center">
-          <GlitchText intensity="high" className="block text-5xl font-light tracking-wider">
+      <main className="relative z-30 mx-auto max-w-7xl px-4 py-12 flex-grow flex flex-col justify-between">
+        <header className="mb-8 space-y-2 text-center">
+          <GlitchText intensity="high" className="block text-4xl font-light tracking-wider">
             サイバーパンク
           </GlitchText>
           
-          <GlitchText intensity="medium" className="block text-3xl font-light tracking-widest text-rose-500">
+          <GlitchText intensity="medium" className="block text-2xl font-light tracking-widest text-rose-500">
             anetrexic
           </GlitchText>
 
-          <GlitchText intensity="low" className="block text-xl font-light tracking-wider text-gray-400">
+          <GlitchText intensity="low" className="block text-lg font-light tracking-wider text-gray-400">
             デジタルコア_アンダーグラウンド
           </GlitchText>
         </header>
 
-        {/* Conditional rendering of About Me section */}
-        {showAboutMe && <AboutMe />}
-      </main>
+        {/* Content sections with smooth transitions */}
+        <ContentSection activeSection={activeSection} />
 
-      {/* Social Links at the bottom */}
-      <footer className="relative z-30 pb-8">
-        <div className="flex justify-center space-x-12">
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="group">
-            <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-              sintagram
-            </GlitchText>
-          </a>
-          <a href="https://www.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
-            <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-              sportify
-            </GlitchText>
-          </a>
-          <a href="https://soundcloud.com/" target="_blank" rel="noopener noreferrer" className="group">
-            <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-              soundcloud
-            </GlitchText>
-          </a>
-        </div>
-      </footer>
+        {/* Move footer inside main for better spacing control */}
+        <footer className="relative z-30 pt-8">
+          <div className="flex justify-center space-x-12">
+            <a href="https://www.instagram.com/anetrexic/" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                instagram
+              </GlitchText>
+            </a>
+            <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                spotify
+              </GlitchText>
+            </a>
+            <a href="https://soundcloud.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                soundcloud
+              </GlitchText>
+            </a>
+            <a href="https://x.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                x
+              </GlitchText>
+            </a>
+            <a href="https://www.youtube.com/@anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                youtube
+              </GlitchText>
+            </a>
+          </div>
+        </footer>
+      </main>
     </div>
   );
 }
