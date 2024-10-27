@@ -372,34 +372,33 @@ export default function MinimalCyberpunkLanding() {
         <ContentSection activeSection={activeSection} />
 
         <footer className="relative z-30 pt-8">
-          <div className="flex justify-center max-md:flex-wrap max-md:gap-y-4">
-            <div className="flex space-x-12 max-md:flex-wrap max-md:justify-center max-md:gap-y-4">
-              <a href="https://www.instagram.com/anetrexic/" target="_blank" rel="noopener noreferrer" className="group">
-                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                  instagram
-                </GlitchText>
-              </a>
-              <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
-                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                  spotify
-                </GlitchText>
-              </a>
-              <a href="https://soundcloud.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                  soundcloud
-                </GlitchText>
-              </a>
-              <a href="https://x.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                  x
-                </GlitchText>
-              </a>
-              <a href="https://www.youtube.com/@anetrexic" target="_blank" rel="noopener noreferrer" className="group">
-                <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
-                  youtube
-                </GlitchText>
-              </a>
-            </div>
+          {/* Remove the nested div structure and simplify to a single flex container */}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-12">
+            <a href="https://www.instagram.com/anetrexic/" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                instagram
+              </GlitchText>
+            </a>
+            <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                spotify
+              </GlitchText>
+            </a>
+            <a href="https://soundcloud.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                soundcloud
+              </GlitchText>
+            </a>
+            <a href="https://x.com/anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                x
+              </GlitchText>
+            </a>
+            <a href="https://www.youtube.com/@anetrexic" target="_blank" rel="noopener noreferrer" className="group">
+              <GlitchText intensity="low" className="text-gray-400 group-hover:text-violet-400 text-xl font-light tracking-widest transition-colors duration-300">
+                youtube
+              </GlitchText>
+            </a>
           </div>
         </footer>
       </main>
